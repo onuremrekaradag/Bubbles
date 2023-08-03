@@ -27,11 +27,11 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = recyclerViewAdapter
 
 
-        showRecyclerViewSample()
+        showMessageBubblesSample()
     }
 
 
-    private fun showRecyclerViewSample() {
+    private fun showMessageBubblesSample() {
         lifecycleScope.launch {
             (1..10).forEach { int ->
                 delay(1000)
