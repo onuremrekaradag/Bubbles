@@ -2,8 +2,11 @@ package com.kefelon.bubbles
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.kefelon.bubbles.databinding.ActivityMainBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -26,17 +29,18 @@ class MainActivity : AppCompatActivity() {
         recyclerViewAdapter = RecyclerViewAdapter(arrayList)
         binding.recyclerView.adapter = recyclerViewAdapter
 
-
-        showMessageBubblesSample()
+        collectFlow()
     }
 
 
-    private fun showMessageBubblesSample() {
+    private fun collectFlow() {
         lifecycleScope.launch {
-            (1..10).forEach { value ->
-                delay(1000)
-                arrayList.add(value)
-                recyclerViewAdapter.notifyItemInserted(arrayList.size)
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mainViewModel.counterFlow.collect { value ->
+                    arrayList.add(value)
+                    recyclerViewAdapter.notifyItemInserted(arrayList.size)
+                    Log.e("Flow", "$value inserted to RecyclerView")
+                }
             }
         }
     }
