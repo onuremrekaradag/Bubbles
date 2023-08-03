@@ -33,9 +33,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun showMessageBubblesSample() {
         lifecycleScope.launch {
-            (1..10).forEach { int ->
+            (1..10).forEach { value ->
                 delay(1000)
-                arrayList.add(int)
+                arrayList.add(value)
                 recyclerViewAdapter.notifyItemInserted(arrayList.size)
             }
         }
