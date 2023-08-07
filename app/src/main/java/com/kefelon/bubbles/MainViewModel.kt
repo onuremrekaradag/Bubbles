@@ -11,8 +11,8 @@ class MainViewModel : ViewModel() {
     val counterFlow: Flow<Int> = flow {
         (1..10).forEach { value ->
             delay(1000)
-            emit(value)
             Log.e("Flow", "$value emited in Flow")
+            emit(value)
         }
     }
 
