@@ -9,7 +9,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.kefelon.bubbles.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     private fun collectStateFlow() {
         lifecycleScope.launch(Dispatchers.Main) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                mainViewModel.counterStateFLow.buffer(2).collect { value ->
+                mainViewModel.counterStateFLow.collect { value ->
                     arrayList.add(value)
                     recyclerViewAdapter.notifyItemInserted(arrayList.size)
                     Log.e("StateFlow", "$value inserted to RecyclerView")
