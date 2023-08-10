@@ -30,17 +30,17 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = recyclerViewAdapter
 
         mainViewModel.startToCount()
-        collectSharedFlow()
+        collectChannelAsFlow()
     }
 
 
-    private fun collectSharedFlow() {
+    private fun collectChannelAsFlow() {
         lifecycleScope.launch(Dispatchers.Main) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                mainViewModel.counterSharedFLow.collect { value ->
+                mainViewModel.counterFlow.collect { value ->
                     arrayList.add(value)
                     recyclerViewAdapter.notifyItemInserted(arrayList.size)
-                    Log.e("SharedFlow", "$value inserted to RecyclerView")
+                    Log.e("Channel", "$value inserted to RecyclerView")
                 }
             }
         }
