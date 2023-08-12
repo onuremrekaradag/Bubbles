@@ -19,7 +19,7 @@ class MainViewModel : ViewModel() {
 
     fun startToCount() {
         viewModelScope.launch {
-            (1..64).forEach { value ->
+            (1..10).forEach { value ->
                 delay(1000)
                 Log.e("Channel", "$value emited in Channel")
                 _counterChannel.send(value)
